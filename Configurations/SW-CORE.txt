@@ -1,0 +1,122 @@
+! =========================================================
+! SW-CORE - HQ LAYER-3 CORE SWITCH
+! Enterprise Network Infrastructure
+! Cisco Packet Tracer
+! =========================================================
+
+enable
+configure terminal
+
+! ---------------------------------------------------------
+! Layer-3 Routing
+! ---------------------------------------------------------
+
+ip routing
+
+! ---------------------------------------------------------
+! VLAN Configuration
+! ---------------------------------------------------------
+
+vlan 10
+ name ADMIN
+
+vlan 20
+ name HR
+
+vlan 30
+ name FINANCE
+
+vlan 40
+ name IT
+
+vlan 50
+ name SALES
+
+vlan 60
+ name GUEST
+
+vlan 70
+ name SERVER-DMZ
+
+vlan 80
+ name IoT
+
+vlan 90
+ name WIFI
+
+vlan 99
+ name MANAGEMENT
+
+! ---------------------------------------------------------
+! HQ SVI Gateways
+! ---------------------------------------------------------
+
+interface Vlan10
+ ip address 10.10.10.1 255.255.255.0
+ no shutdown
+
+interface Vlan20
+ ip address 10.10.20.1 255.255.255.0
+ no shutdown
+
+interface Vlan30
+ ip address 10.10.30.1 255.255.255.0
+ no shutdown
+
+interface Vlan40
+ ip address 10.10.40.1 255.255.255.0
+ no shutdown
+
+interface Vlan50
+ ip address 10.10.50.1 255.255.255.0
+ no shutdown
+
+interface Vlan60
+ ip address 10.10.60.1 255.255.255.0
+ no shutdown
+
+interface Vlan70
+ ip address 10.10.70.1 255.255.255.0
+ no shutdown
+
+interface Vlan80
+ ip address 10.10.80.1 255.255.255.0
+ no shutdown
+
+interface Vlan90
+ ip address 10.10.90.1 255.255.255.0
+ no shutdown
+
+interface Vlan99
+ ip address 10.10.99.1 255.255.255.0
+ no shutdown
+
+! ---------------------------------------------------------
+! OSPF - Process 10 / Area 0
+! Router ID: 4.4.4.4
+! ---------------------------------------------------------
+
+router ospf 10
+ router-id 4.4.4.4
+
+ network 10.10.254.0 0.0.0.3 area 0
+
+ network 10.10.10.0 0.0.0.255 area 0
+ network 10.10.20.0 0.0.0.255 area 0
+ network 10.10.30.0 0.0.0.255 area 0
+ network 10.10.40.0 0.0.0.255 area 0
+ network 10.10.50.0 0.0.0.255 area 0
+ network 10.10.60.0 0.0.0.255 area 0
+ network 10.10.70.0 0.0.0.255 area 0
+ network 10.10.80.0 0.0.0.255 area 0
+ network 10.10.90.0 0.0.0.255 area 0
+ network 10.10.99.0 0.0.0.255 area 0
+
+! ---------------------------------------------------------
+! HQ Default Route
+! ---------------------------------------------------------
+
+ip route 0.0.0.0 0.0.0.0 10.10.254.1
+
+end
+write memory
