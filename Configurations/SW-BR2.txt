@@ -1,0 +1,115 @@
+! =========================================================
+! SW-BR2 - BRANCH ACCESS SWITCH
+! Enterprise Network Infrastructure
+! Cisco Packet Tracer
+! =========================================================
+
+enable
+configure terminal
+
+! ---------------------------------------------------------
+! VLAN Configuration
+! ---------------------------------------------------------
+
+vlan 10
+ name BRANCH-USERS
+
+vlan 40
+ name BRANCH-IT
+
+vlan 60
+ name BRANCH-GUEST
+
+vlan 80
+ name IoT
+
+vlan 90
+ name WIFI
+
+vlan 99
+ name MANAGEMENT
+
+! ---------------------------------------------------------
+! Branch User Access Ports
+! ---------------------------------------------------------
+
+interface FastEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ ip dhcp snooping limit rate 10
+ switchport port-security
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+interface FastEthernet0/2
+ switchport access vlan 10
+ switchport mode access
+ ip dhcp snooping limit rate 10
+ switchport port-security
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+interface FastEthernet0/3
+ switchport access vlan 60
+ switchport mode access
+ ip dhcp snooping limit rate 10
+ switchport port-security
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+! ---------------------------------------------------------
+! Branch Wi-Fi Access Port
+! ---------------------------------------------------------
+
+interface FastEthernet0/10
+ switchport mode access
+ switchport access vlan 90
+ no shutdown
+
+! ---------------------------------------------------------
+! EtherChannel Member Links
+! ---------------------------------------------------------
+
+interface FastEthernet0/23
+ switchport trunk allowed vlan 10,40,60,80,90,99
+ switchport mode trunk
+ ip arp inspection trust
+ ip dhcp snooping trust
+ channel-group 4 mode active
+
+interface FastEthernet0/24
+ switchport trunk allowed vlan 10,40,60,80,90,99
+ switchport mode trunk
+ ip arp inspection trust
+ ip dhcp snooping trust
+ channel-group 4 mode active
+
+! ---------------------------------------------------------
+! LACP Port-Channel
+! ---------------------------------------------------------
+
+interface Port-channel4
+ switchport trunk allowed vlan 10,40,60,80,90,99
+ switchport mode trunk
+
+! ---------------------------------------------------------
+! Dynamic ARP Inspection
+! ---------------------------------------------------------
+
+ip arp inspection vlan 10,40,60,80,90,99
+
+! ---------------------------------------------------------
+! DHCP Snooping
+! ---------------------------------------------------------
+
+ip dhcp snooping vlan 10,40,60,80,99
+no ip dhcp snooping information option
+
+end
+write memory
