@@ -1,0 +1,35 @@
+! =========================================================
+! R-INTERNET - SIMULATED INTERNET ROUTER
+! Enterprise Network Infrastructure
+! Cisco Packet Tracer
+! =========================================================
+
+enable
+configure terminal
+
+! ---------------------------------------------------------
+! Interface to R-ISP
+! ---------------------------------------------------------
+
+interface GigabitEthernet0/0
+ ip address 10.10.255.2 255.255.255.252
+ no shutdown
+
+! ---------------------------------------------------------
+! Simulated Internet Endpoint
+! ---------------------------------------------------------
+
+interface Loopback0
+ ip address 8.8.8.8 255.255.255.255
+ no shutdown
+
+end
+write memory
+
+! ---------------------------------------------------------
+! VERIFICATION COMMANDS
+! ---------------------------------------------------------
+
+show ip interface brief
+ping 10.10.255.1
+ping 8.8.8.8
