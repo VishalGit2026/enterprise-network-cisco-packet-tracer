@@ -1,0 +1,81 @@
+! =========================================================
+! R-ISP - INTERNET EDGE / NAT-PAT ROUTER
+! Enterprise Network Infrastructure
+! Cisco Packet Tracer
+! =========================================================
+
+enable
+configure terminal
+
+! ---------------------------------------------------------
+! Interface to R-HQ
+! ---------------------------------------------------------
+
+interface GigabitEthernet0/0
+ ip address 10.10.253.2 255.255.255.252
+ ip nat inside
+ no shutdown
+
+! ---------------------------------------------------------
+! Interface to R-BR
+! ---------------------------------------------------------
+
+interface GigabitEthernet0/1
+ ip address 10.10.252.2 255.255.255.252
+ ip nat inside
+ no shutdown
+
+! ---------------------------------------------------------
+! Interface to R-INTERNET
+! ---------------------------------------------------------
+
+interface GigabitEthernet0/2
+ ip address 10.10.255.1 255.255.255.252
+ ip nat outside
+ no shutdown
+
+! ---------------------------------------------------------
+! OSPF - Process 10 / Area 0
+! ---------------------------------------------------------
+
+router ospf 10
+ router-id 2.2.2.2
+ network 10.10.252.0 0.0.0.3 area 0
+ network 10.10.253.0 0.0.0.3 area 0
+
+! ---------------------------------------------------------
+! NAT/PAT Source ACL
+! ---------------------------------------------------------
+
+access-list 1 permit 10.20.0.0 0.0.255.255
+access-list 1 permit 10.10.0.0 0.0.255.255
+
+! ---------------------------------------------------------
+! NAT Overload / PAT
+! ---------------------------------------------------------
+
+ip nat inside source list 1 interface GigabitEthernet0/2 overload
+
+! ---------------------------------------------------------
+! Default Route to R-INTERNET
+! ---------------------------------------------------------
+
+ip route 0.0.0.0 0.0.0.0 10.10.255.2
+
+end
+write memory
+
+! ---------------------------------------------------------
+! VERIFICATION COMMANDS
+! ---------------------------------------------------------
+
+show ip interface brief
+show ip route
+show ip ospf neighbor
+show access-lists 1
+show ip nat translations
+show ip nat statistics
+show ip route 0.0.0.0
+
+ping 10.10.255.2
+ping 8.8.8.8
