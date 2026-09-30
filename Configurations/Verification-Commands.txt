@@ -1,0 +1,201 @@
+=========================================================
+ENTERPRISE NETWORK - VERIFICATION COMMANDS
+Cisco Packet Tracer
+=========================================================
+
+1. GENERAL CONFIGURATION
+------------------------
+
+show running-config
+
+show running-config | include <keyword>
+
+show running-config | section <section>
+
+
+2. SWITCH INTERFACE STATUS
+--------------------------
+
+show interfaces status
+
+show ip interface brief
+
+
+3. VLAN VERIFICATION
+--------------------
+
+show vlan brief
+
+
+4. TRUNK VERIFICATION
+---------------------
+
+show interfaces trunk
+
+
+5. MAC ADDRESS TABLE
+--------------------
+
+show mac address-table
+
+
+6. ETHERCHANNEL / LACP
+----------------------
+
+show etherchannel summary
+
+
+7. SPANNING TREE
+----------------
+
+show spanning-tree
+
+
+8. OSPF VERIFICATION
+--------------------
+
+show ip ospf neighbor
+
+show ip route
+
+show ip route 0.0.0.0
+
+
+9. DHCP VERIFICATION
+--------------------
+
+show ip dhcp binding
+
+show ip dhcp pool
+
+
+10. DHCP SNOOPING
+-----------------
+
+show ip dhcp snooping
+
+show ip dhcp snooping binding
+
+
+11. DYNAMIC ARP INSPECTION
+--------------------------
+
+show ip arp inspection
+
+
+12. PORT SECURITY
+-----------------
+
+show port-security
+
+
+13. SSH VERIFICATION
+--------------------
+
+show ip ssh
+
+
+14. ACL VERIFICATION
+--------------------
+
+show access-lists
+
+show access-lists ACL-GUEST-IN
+
+
+15. NAT / PAT VERIFICATION
+--------------------------
+
+show ip nat translations
+
+show ip nat statistics
+
+
+16. CONNECTIVITY TESTING
+-----------------------
+
+ping 10.10.10.1
+ping 10.10.90.1
+ping 10.10.252.2
+ping 10.10.253.2
+ping 10.10.255.2
+ping 8.8.8.8
+
+
+17. BRANCH TESTING
+------------------
+
+ping 10.20.10.1
+ping 10.20.40.1
+ping 10.20.60.1
+ping 10.20.80.1
+ping 10.20.90.1
+
+
+18. HQ WIFI TESTING
+-------------------
+
+HQ-WIFI-LAP01
+IP: 10.10.90.21
+Gateway: 10.10.90.1
+
+HQ-WIFI-LAP02
+IP: 10.10.90.22
+Gateway: 10.10.90.1
+
+
+19. BRANCH WIFI TESTING
+-----------------------
+
+BR-WIFI-01
+IP: 10.20.90.23
+Gateway: 10.20.90.1
+
+BR-WIFI-02
+IP: 10.20.90.22
+Gateway: 10.20.90.1
+
+
+20. IOT TESTING
+---------------
+
+IOT-TEMP01
+IP: 10.10.80.22
+Gateway: 10.10.80.1
+
+IOT-MOTION01
+IP: 10.10.80.23
+Gateway: 10.10.80.1
+
+IOT-DOOR01
+IP: 10.10.80.24
+Gateway: 10.10.80.1
+
+
+21. FINAL VALIDATION ORDER
+--------------------------
+
+1. Check interface state.
+2. Check VLAN membership.
+3. Check trunk state.
+4. Check EtherChannel.
+5. Check OSPF adjacency.
+6. Check DHCP leases.
+7. Check Guest ACL.
+8. Check Wi-Fi addressing.
+9. Check IoT addressing.
+10. Generate Internet traffic.
+11. Check NAT translations.
+12. Ping 8.8.8.8.
+13. Save the final configuration.
+
+
+22. SAVE CONFIGURATION
+----------------------
+
+write memory
+
+
+=========================================================
+END OF VERIFICATION COMMANDS
+=========================================================
